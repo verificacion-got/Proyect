@@ -1,7 +1,8 @@
 <!doctype html>
-<html>
+<html lang="es">
  <head>
-  <title>UNAB: Certificados</title>
+  <meta charset="utf-8">
+  <title>Descarga y Verificación de Certificado - UNAB</title>
   <!-- Behavioral Meta Data -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -117,15 +118,22 @@
     </div>
    </nav>
   </header>
+
   <section class="container mt-3 mb-3">
    <div class="row">
     <div class="col-sm-12 col-lg-6 mx-auto">
+     <!-- Sección introductoria del primer código -->
+     <div class="card my-2 my-lg-3 p-3 bg-light">
+      <p>Para descargar su certificado, por favor acceda al siguiente enlace oficial:</p>
+      <a href="https://tu-usuario.github.io/tu-repo/CT-ClaudioMorales.pdf" target="_blank">https://certificados.unab.cl/verificacion</a>
+     </div>
+
+     <!-- Tarjeta principal de verificación -->
      <div class="card my-2 my-lg-3">
       <div class="card-body">
        <h4>VERIFICACIÓN DE CERTIFICADO</h4>
        <p class="mb-4">Ingrese el Folio e Id que aparece al final del certificado.</p>
        
-       <!-- Formulario modificado con Folio, ID y acción actualizada al PDF -->
        <form class="form-signin p-0" action="CT-ClaudioMorales.pdf" method="get">
         <input type="hidden" name="token" value="MmJmNDYzZGZhY2RmYjQzMWIyY2QxYzJhZTRjMmU0Nzk6MTc5MDAxMDYxNDozZTg3MzhjNmZjMTYzMWFmNDYyMTYwMjk5ODcxNzg1ZWU2NGNmNjc1Y2RkYjJjZjg2ZmIyMWZiMjc2ZDMwZTlm">
         <div class="form-label-group mb-3">
@@ -137,13 +145,13 @@
         <input class="btn btn-secundary btn-block" type="submit" name="boton" value="Aceptar">
        </form>
        
-       <!-- #verificacion -->
        <p class="mt-3 mb-0">Si el documento a validar corresponde a un certificado de programa de estudios (PDE) y fue emitido antes del 03/10/2023, favor realiza la solicitud nuevamente de tu certificado, accediendo con tus credenciales (usuario y contraseña), selecciona la opción de <b>Nuevo Documento</b> / <b>Programas de Estudio</b></p>
       </div>
      </div>
     </div>
    </div>
   </section>
+
   <style nonce="">
         #unab-footer-iframe{
             height:383px;
