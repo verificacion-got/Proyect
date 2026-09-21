@@ -1,143 +1,231 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validación de Títulos - Prototipo</title>
-    <style>
-        /* Diseño de la interfaz (CSS) */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f6; 
-            padding: 40px; 
-            display: flex; 
-            justify-content: center;
-        }
-        .contenedor { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 400px; 
-            text-align: center; 
-        }
-        input { 
-            padding: 12px; 
-            width: 100%; 
-            margin: 15px 0; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            font-size: 16px; 
-            box-sizing: border-box; /* Evita que el input se salga del contenedor */
-        }
-        button { 
-            background-color: #0056b3; 
-            color: white; 
-            border: none; 
-            padding: 12px 20px; 
-            border-radius: 4px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            width: 100%; 
-            font-weight: bold;
-        }
-        button:hover { 
-            background-color: #004494; 
-        }
-        #resultado { 
-            margin-top: 20px; 
-            padding: 15px; 
-            border-radius: 5px; 
-            display: none; 
-            text-align: left; 
-        }
-        .valido { 
-            background-color: #d4edda; 
-            color: #155724; 
-            border: 1px solid #c3e6cb; 
-        }
-        .invalido { 
-            background-color: #f8d7da; 
-            color: #721c24; 
-            border: 1px solid #f5c6cb; 
-        }
-    </style>
-</head>
-<body>
+<!doctype html>
+<html>
+ <head>
+  <title>UNAB: Certificados</title>
+  <!-- Behavioral Meta Data -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="https://certificados.unab.cl/unab/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://certificados.unab.cl/unab/css/screen.css">
+  <!-- js -->
+  <script src="https://certificados.unab.cl/unab/jquery/jquery-3.7.1.min.js"></script>
+  <script type="text/javascript" src="https://certificados.unab.cl/unab/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="https://certificados.unab.cl/unab/bootstrap/js/bootstrap-datepicker.min.js"></script>
+  <script type="text/javascript">
+        $(function(){
+            $('.input-daterange').datepicker({
+                autoclose: true
+            });
 
-    <div class="contenedor">
-        <h2>Verificación Institucional</h2>
-        <p>Ingrese el código de verificación o folio del título:</p>
-        
-        <!-- Campo de entrada -->
-        <input type="text" id="folioInput" placeholder="Ej: AB-12345">
-        
-        <!-- Botón que activa la función de JavaScript -->
-        <button onclick="verificarFolio()">Validar Documento</button>
-
-        <!-- Aquí aparecerá el mensaje de éxito o error -->
-        <div id="resultado"></div>
-    </div>
-
-    <script>
-        /* 
-           Simulación de la Base de Datos (Mock Database)
-           En la vida real, esto vive en un servidor seguro (SQLite, MySQL, etc.)
-           y nunca en el HTML público. Lo incluimos aquí para que el prototipo funcione.
-        */
-        const baseDeDatosSimulada = {
-            "AB-12345": {
-                nombre: "Juan Pérez",
-                carrera: "Ingeniería Informática",
-                fecha: "2024-12-15",
-                estado: "Válido (Titulado)"
-            },
-            "AB-98765": {
-                nombre: "María Gómez",
-                carrera: "Arquitectura",
-                fecha: "2023-05-10",
-                estado: "Válido (Titulada)"
-            }
-        };
-
-        /* Lógica del sistema (Simulación del Backend en Python) */
-        function verificarFolio() {
-            // 1. Capturamos lo que el usuario escribió
-            const folio = document.getElementById('folioInput').value.trim();
-            const divResultado = document.getElementById('resultado');
-            
-            // Verificamos que no esté vacío
-            if (!folio) {
-                alert("Por favor ingrese un folio para consultar.");
-                return;
-            }
-
-            // Hacemos visible el cuadro de resultados
-            divResultado.style.display = 'block';
-
-            // 2. Consultamos la base de datos simulada
-            if (baseDeDatosSimulada[folio]) {
-                // Si el folio existe, extraemos sus datos
-                const datos = baseDeDatosSimulada[folio];
-                
-                // Pintamos el cuadro de verde y mostramos la información
-                divResultado.className = 'valido';
-                divResultado.innerHTML = `
-                    <strong>✅ Documento Auténtico</strong><br><br>
-                    <strong>Titular:</strong> ${datos.nombre}<br>
-                    <strong>Carrera:</strong> ${datos.carrera}<br>
-                    <strong>Fecha Emisión:</strong> ${datos.fecha}<br>
-                    <strong>Estado:</strong> ${datos.estado}
-                `;
-            } else {
-                // Si el folio NO existe, pintamos de rojo y mostramos el error
-                divResultado.className = 'invalido';
-                divResultado.innerHTML = `
-                    <strong>❌ Error:</strong> Folio no encontrado o documento inválido. Asegúrese de haber ingresado el código correctamente.
-                `;
-            }
-        }
+            $('.input-group.date').datepicker({
+                calendarWeeks: true,
+                todayHighlight: true,
+                autoclose: true
+            });
+        });
     </script>
-</body>
+  <script type="text/javascript">
+        /* tooltips */
+        $(function () {
+            $('.my-tooltip').tooltip();
+            $('.dropdown button').click(function() {
+                $('.my-tooltip').tooltip('hide');
+            });
+        });
+    </script>
+  <script type="text/javascript">
+        /* file uploader */
+        function bs_input_file() {
+            $(".input-file").before(
+                function() {
+                    if ( ! $(this).prev().hasClass('input-ghost') ) {
+                        var element = $("<input type='file' name='archivo' class='input-ghost' style='visibility:hidden; height:0'>");
+                        element.attr("name",$(this).attr("name"));
+                        element.change(function(){
+                            element.next(element).find('input').val((element.val()).split('\\').pop());
+                        });
+                        $(this).find("button.btn-choose").click(function(){
+                            element.click();
+                        });
+                        $(this).find("button.btn-reset").click(function(){
+                            element.val(null);
+                            $(this).parents(".input-file").find('input').val('');
+                        });
+                        $(this).find('input').css("cursor","pointer");
+                        $(this).find('input').mousedown(function() {
+                            $(this).parents('.input-file').prev().click();
+                            return false;
+                        });
+                        return element;
+                    }
+                }
+            );
+        }
+        $(function() {
+            bs_input_file();
+        });
+    </script>
+ </head>
+ <body>
+  <header>
+   <div class="encabezado">
+    <a class="navbar-brand" href="/">Certificados en línea</a>
+    <h2>Certificados en línea</h2>
+    <div class="handler navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContentXL" aria-controls="navbarSupportedContentXL" aria-expanded="false" aria-label="Toggle navigation">
+     <div class="hamburger-menu"></div>
+    </div>
+    <script type="text/javascript">
+                $(function() {
+                    var menu = $("#menu");
+                    var handler = $(".handler");
+
+                    handler.click(function() {
+                        menu.slideToggle(300);
+                    });
+
+                    $(window).resize(function() {
+                       var w = $(window).width();
+
+                        if(w > 540 && menu.is(":hidden")) {
+                            menu.removeAttr("style");
+                        }
+                    });
+                });
+
+                (function () {
+                    $('.handler').on('click', function() {
+                        $('.hamburger-menu').toggleClass('animate');
+                    })
+                })();
+            </script>
+   </div>
+   <nav class="navbar navbar-expand-xl container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContentXL">
+     <ul class="navbar-nav mx-auto">
+      <li class="nav-item last"><a class="nav-link" target="_blank" href="https://www.unab.cl/servicioestudiante/certificados-online/"> Preguntas Frecuentes</a></li>
+      <li class="usuario responsive">
+       <ul>
+        <li class="nav-item avatar dropdown"><a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" data-placement="bottom"> <img src="/unab/images/avatar.png" class="rounded-circle z-depth-0 mr-1" alt="avatar image" height="25"> </a>
+         <div class="dropdown-menu dropdown-menu-right shadow-sm" aria-labelledby="navbarDropdownXL">
+          <a class="dropdown-item" href="https://certificados.unab.cl/index.php/">Volver al Inicio</a>
+         </div></li>
+       </ul>
+      </li>
+     </ul>
+    </div>
+   </nav>
+  </header>
+  <section class="container mt-3 mb-3">
+   <div class="row">
+    <div class="col-sm-12 col-lg-6 mx-auto">
+     <div class="card my-2 my-lg-3">
+      <div class="card-body">
+       <h4>VERIFICACIÓN DE CERTIFICADO</h4>
+       <p class="mb-4">Ingrese el Folio e Id que aparece al final del certificado.</p>
+       <form class="form-signin p-0" action="https://certificados.unab.cl/index.php/portada/verificacion/" method="post">
+        <input type="hidden" name="token" value="MmJmNDYzZGZhY2RmYjQzMWIyY2QxYzJhZTRjMmU0Nzk6MTc5MDAxMDYxNDozZTg3MzhjNmZjMTYzMWFmNDYyMTYwMjk5ODcxNzg1ZWU2NGNmNjc1Y2RkYjJjZjg2ZmIyMWZiMjc2ZDMwZTlm">
+        <div class="form-label-group mb-3">
+         <input class="form-control" placeholder="Folio" type="text" name="folio" value="">
+        </div>
+        <div class="form-label-group mb-3">
+         <input class="form-control" placeholder="ID Alumno" type="text" name="rut" value="">
+        </div>
+        <!-- <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">Recordar contraseña</label>
+                            </div> -->
+        <input class="btn btn-secundary btn-block" type="submit" name="boton" value="Aceptar">
+       </form>
+       <!-- #verificacion -->
+       <p class="mt-3 mb-0">Si el documento a validar corresponde a un certificado de programa de estudios (PDE) y fue emitido antes del 03/10/2023, favor realiza la solicitud nuevamente de tu certificado, accediendo con tus credenciales (usuario y contraseña), selecciona la opción de <b>Nuevo Documento</b> / <b>Programas de Estudio</b></p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <style nonce="">
+        #unab-footer-iframe{
+            height:383px;
+            display:block;
+        }
+        @media(max-width:1399px){
+            #unab-footer-iframe{
+                height:405px;
+            }
+        }
+        @media(max-width:991px){
+            #unab-footer-iframe{
+                height:689px;
+            }
+        }
+        @media(max-width:788px){
+            #unab-footer-iframe{
+                height:756px;
+            }
+        }
+        @media(max-width:767px){
+            #unab-footer-iframe{
+                height:983px;
+            }
+        }
+        @media(max-width:629px){
+            #unab-footer-iframe{
+                height:1033px;
+            }
+        }
+	</style>
+  <iframe class="w-100 border-0" sandbox="allow-same-origin allow-scripts allow-popups allow-popups-to-escape-sandbox" id="unab-footer-iframe"></iframe>
+  <script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const iframe = document.getElementById("unab-footer-iframe");
+			if (!iframe) return;
+
+			const hostname = window.location.hostname.toLowerCase();
+			const footerUrl = "https://www.unab.cl/footer-19/footer.html";
+			iframe.src = footerUrl;
+
+			window.addEventListener("message", function (event) {
+				const allowedOrigins = [
+				"https://test.unab.cl",
+				"https://www.unab.cl"
+				];
+
+				if (!allowedOrigins.includes(event.origin)) return;
+
+				if (
+				event.data &&
+				event.data.type === "resize-footer" &&
+				typeof event.data.height === "number"
+				) {
+				iframe.style.height = event.data.height + "px";
+				}
+			});
+
+		});
+	</script>
+  <!--footer class="footer-area footer--light py-3">
+        <div class="footer-big pt-2">
+            <div class="container">
+                <div class="d-flex flex-wrap flex-lg-nowrap mb-4 align-items-center justify-content-around">
+                    <img class="m-lg-0" src="https://certificados.unab.cl//unab/images/cna-chile.png" alt="Acreditación">
+                    <img class="m-lg-0" src="https://certificados.unab.cl//unab/images/msche.png" alt="Acreditación">
+                    <img class="m-lg-0" src="https://certificados.unab.cl//unab/images/chea.png" alt="Acreditación">
+                    <img class="m-lg-0" src="https://certificados.unab.cl//unab/images/aneca.png" alt="Acreditación">
+                    <img class="m-lg-0" src="https://certificados.unab.cl//unab/images/rcs.png" alt="Acreditación">
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="copyright-text text-center">
+                            <small>Consultas, contacta directamente al Coordinador de Servicios Académicos de tu Escuela, Departamento o Carrera.</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer -->
+  <script id="Microsoft_Omnichannel_LCWidget" src="https://oc-cdn-public-sam.azureedge.net/livechatwidget/scripts/LiveChatBootstrapper.js" onerror="(function(el){el.parentNode.removeChild(el);var s=document.createElement('script');s.src='https://ocprodpublicsamgs.blob.core.windows.net/livechatwidget/scripts/LiveChatBootstrapper.js';s.setAttribute('id', 'Microsoft_Omnichannel_LCWidget');s.setAttribute('data-app-id', 'f93e88fe-4940-418f-abea-321064787143');s.setAttribute('data-lcw-version', 'prod');s.setAttribute('data-org-id', 'b06ebd75-bf44-4749-92a8-89f3cea6748e');s.setAttribute('data-org-url', 'https://m-b06ebd75-bf44-4749-92a8-89f3cea6748e.br.omnichannelengagementhub.com');document.body.appendChild(s);})(this);" data-app-id="f93e88fe-4940-418f-abea-321064787143" data-lcw-version="prod" data-org-id="b06ebd75-bf44-4749-92a8-89f3cea6748e" data-org-url="https://m-b06ebd75-bf44-4749-92a8-89f3cea6748e.br.omnichannelengagementhub.com" async></script>
+ </body>
 </html>
