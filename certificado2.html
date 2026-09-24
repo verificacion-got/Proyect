@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Certificado - UNAB</title>
+    <style>
+        :root {
+            --unab-rojo: #a41223;
+            --unab-rojo-oscuro: #8b0e1d;
+            --unab-azul: #002d4e;
+            --unab-negro: #1a1a1a;
+            --texto-oscuro: #333333;
+            --texto-gris: #555555;
+            --fondo-gris: #f4f4f4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--fondo-gris);
+            color: var(--texto-oscuro);
+            line-height: 1.4;
+            padding-bottom: 80px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            height: 90px; 
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            padding-left: 0; 
+            flex: 1; 
+        }
+
+        .header-logo img {
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+
+        .header-btn {
+            background-color: var(--unab-rojo);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 20px;
+            white-space: nowrap; 
+        }
+
+        /* --- MAIN CONTENT --- */
+        .main-wrapper {
+            max-width: 100%;
+            padding: 20px 15px;
+            background-color: var(--fondo-gris);
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 25px 20px;
+            border: 1px solid #e0e0e0;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .intro-text {
+            color: var(--texto-gris);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: var(--texto-oscuro);
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+
+        .warning-text {
+            color: var(--unab-rojo);
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            color: var(--unab-rojo);
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .data-field {
+            margin-bottom: 15px;
+        }
+
+        .data-label {
+            font-weight: bold;
+            color: var(--texto-oscuro);
+            font-size: 15px;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        .data-value {
+            color: var(--texto-gris);
+            font-size: 15px;
+            display: block;
+        }
+
+        /* --- BOTÓN DESCARGA --- */
+        .download-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 80px;
+            height: 80px;
+        }
+
+        .download-btn img {
+            width: 35px;
+            margin-bottom: 5px;
+        }
+
+        .download-btn span {
+            color: var(--unab-rojo);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER AZUL --- */
+        .footer-blue {
+            background-color: var(--unab-azul);
+            color: #ffffff;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        .footer-section {
+            margin-bottom: 25px;
+        }
+
+        .footer-section strong {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .footer-section p {
+            margin-bottom: 5px;
+            color: #e0e0e0;
+        }
+
+        .social-bar {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .social-bar span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .footer-logo-center {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .footer-logo-center img {
+            max-width: 200px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* --- FOOTER NEGRO --- */
+        .footer-black {
+            background-color: var(--unab-negro);
+            padding: 30px 20px;
+        }
+
+        .accreditation-box {
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            text-align: center;
+        }
+
+        .accreditation-box img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* --- WIDGET CHAT FLOTANTE --- */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffffff;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            padding: 5px 20px 5px 5px;
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .chat-icon {
+            background-color: #da291c;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-right: 12px;
+            font-family: monospace;
+        }
+
+        .chat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-text-main {
+            color: var(--texto-oscuro);
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .chat-text-sub {
+            color: #888;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABECERA -->
+    <header>
+        <div class="header-logo">
+            <img src="logoA.jpg" alt="Universidad Andrés Bello" onerror="this.outerHTML='<div style=\'display:flex;align-items:center;width:100%;height:100%;padding-left:15px;background:#f4f4f4;\'><h2 style=\'color:#002d4e; margin:0;\'>Universidad<br>Andrés Bello</h2></div>'">
+        </div>
+        <a href="#" class="header-btn">
+            Certificados<br>en línea
+        </a>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-wrapper">
+        <div class="card">
+            <p class="intro-text">A continuación se muestra la información del certificado consultado.</p>
+            
+            <h2>Verificación Certificado</h2>
+            
+            <h1 class="warning-text">
+                SÓLO PARA<br>
+                TITULADOS -<br>
+                Certificados de Título<br>
+                - Certificado de Titulo<br>
+                y Grado
+            </h1>
+
+            <h3 class="section-title">Estado del certificado</h3>
+            
+            <div class="data-field">
+                <span class="data-label">Fecha EMISIÓN:</span>
+                <span class="data-value">24-09-2026</span>
+            </div>
+            
+            <div class="data-field">
+                <span class="data-label">Válido Hasta:</span>
+                <span class="data-value">No Caduca</span>
+            </div>
+
+            <h3 class="section-title">Datos del certificado</h3>
+            
+            <p class="intro-text">A continuación se muestran información del certificado.</p>
+            
+            <div class="data-field">
+                <span class="data-label">Rut:</span>
+                <span class="data-value">15.414.739-K</span>
+            </div>
+            
+            <div class="data-field">
+                <span class="data-label">Apellidos:</span>
+                <span class="data-value">FERNÁNDEZ SAN MARTÍN</span>
+            </div>
+            
+            <div class="data-field">
+                <span class="data-label">Nombre:</span>
+                <span class="data-value">CAROLINA ANDREA</span>
+            </div>
+            
+            <div class="data-field">
+                <span class="data-label">Carrera:</span>
+                <span class="data-value">UNAB22600 - ARQUITECTURA</span>
+            </div>
+
+            <div class="data-field">
+                <span class="data-label">Sede:</span>
+                <span class="data-value">Campus creativo SANTIAGO</span>
+            </div>
+
+            <div class="data-field">
+                <span class="data-label">Modalidad:</span>
+                <span class="data-value">Presencial Diurno</span>
+            </div>
+
+            <div class="data-field">
+                <span class="data-label">Nota final:</span>
+                <span class="data-value">5,4</span>
+            </div>
+
+            <h3 class="section-title">Descarga Certificado</h3>
+            
+            <p class="intro-text">Descarga de certificado en formato PDF.</p>
+            
+            <!-- ENLACE DE DESCARGA ACTUALIZADO -->
+            <a href="unab.15414739.861099.pdf" download="unab.15414739.861099.pdf" class="download-btn">
+                <img src="pdf-icon.png" alt="PDF" onerror="this.outerHTML='<div style=\'font-size:24px; color:red; font-weight:bold;\'>📄</div>'">
+                <span>Descargar</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER AZUL -->
+    <footer class="footer-blue">
+        <div class="footer-section">
+            <strong>Call Center Admisión</strong>
+            <p>600 - 228 6262</p>
+            <p>Lunes a viernes de 09:00 a 19:00 hrs.</p>
+        </div>
+        
+        <div class="footer-section">
+            <strong>Servicio al estudiante</strong>
+            <p>600 - 220 3333</p>
+            <p>Lunes a viernes de 09:00 a 20:00 hrs.</p>
+            <p>Sábado de 10:00 a 14:00 hrs.</p>
+        </div>
+
+        <div class="social-bar">
+            <span>𝕏</span>
+            <span>@</span>
+            <span>f</span>
+            <span>◎</span>
+            <span>▶</span>
+            <span>in</span>
+            <span>♪</span>
+        </div>
+
+        <div class="footer-logo-center">
+            <img src="logo-unab-blanco.png" alt="Universidad Andrés Bello" onerror="this.outerHTML='<h2 style=\'color:#fff; margin:0;\'>Universidad<br>Andrés Bello</h2>'">
+        </div>
+
+        <div class="footer-links">
+            <ul>
+                <li><a href="#">Biblioteca</a></li>
+                <li><a href="#">Matrícula y Financiamiento</a></li>
+                <li><a href="#">CIADE</a></li>
+                <li><a href="#">Alumni UNAB</a></li>
+            </ul>
+            <br>
+            <ul>
+                <li><a href="#">Trabaja con nosotros</a></li>
+                <li><a href="#">Dirección General de Desarrollo Estudiantil</a></li>
+                <li><a href="#">Política de Privacidad</a></li>
+                <li><a href="#">Política UNAB Mobile</a></li>
+            </ul>
+            <br>
+            <ul>
+                <li><a href="#">Gestiona tu Caso</a></li>
+                <li><a href="#">Logo y templates institucionales</a></li>
+                <li><a href="#">Calendarios institucionales</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- FOOTER NEGRO (ACREDITACIONES) -->
+    <div class="footer-black">
+        <div class="accreditation-box">
+            <img src="cna-chile.png" alt="Comisión Nacional de Acreditación CNA Chile - Hasta Dic. 2028" onerror="this.outerHTML='<span style=\'color:#fff\'>UNIVERSIDAD ACREDITADA<br>Nivel de excelencia en todas las áreas<br>HASTA DIC. 2028</span>'">
+        </div>
+        <div class="accreditation-box" style="justify-content: space-around;">
+            <span style="color:#fff; font-size:20px; font-weight:bold;">8 ||| MSCHE</span>
+            <span style="color:#fff; font-size:16px;">CHEA CIQG</span>
+            <span style="color:#fff; font-size:14px; border:1px solid #fff; padding:5px;">AUDIT ANECA</span>
+        </div>
+    </div>
+
+    <!-- WIDGET DE CHAT -->
+    <div class="chat-widget">
+        <div class="chat-icon">ia</div>
+        <div class="chat-text">
+            <span class="chat-text-main">¿Te ayudo?</span>
+            <span class="chat-text-sub">Estamos en línea</span>
+        </div>
+    </div>
+
+</body>
+</html>
